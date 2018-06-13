@@ -2,23 +2,26 @@
  * List that holds all cards
  */
 const deck = [
-'fa-diamond',
-'fa-paper-plane-o',
-'fa-anchor',
-'fa-bolt',
-'fa-cube',
-'fa-anchor',
-'fa-leaf',
-'fa-bicycle',
-'fa-diamond',
-'fa-bomb',
-'fa-leaf',
-'fa-bomb',
-'fa-bolt',
-'fa-bicycle',
-'fa-paper-plane-o',
-'fa-cube'
+'fa fa-diamond',
+'fa fa-paper-plane-o',
+'fa fa-anchor',
+'fa fa-bolt',
+'fa fa-cube',
+'fa fa-anchor',
+'fa fa-leaf',
+'fa fa-bicycle',
+'fa fa-diamond',
+'fa fa-bomb',
+'fa fa-leaf',
+'fa fa-bomb',
+'fa fa-bolt',
+'fa fa-bicycle',
+'fa fa-paper-plane-o',
+'fa fa-cube'
 ]
+
+// Get deck playing field
+const deckField = document.querySelector('.deck');
 
 /*
  * Display the cards on the page
@@ -42,7 +45,18 @@ function shuffle(array) {
     return array;
 }
 
+// Deal cards
+function deal() {
+    for (let i = 0; i < deck.length; i++) {
+        const li = document.createElement('li');
+        const symbol = deck[i];
+        li.classList.add('card');
+        li.innerHTML = `<i class = "${symbol}">`;
+        deckField.appendChild(li);
+    }
+}
 
+deal();
 /*
  * set up the event listener for a card. If a card is clicked:
  *  - display the card's symbol (put this functionality in another function that you call from this one)
