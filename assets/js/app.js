@@ -45,13 +45,15 @@ function shuffle(array) {
     return array;
 }
 
+shuffle(deck);
+
 // Deal cards
 function deal() {
-    for (let i = 0; i < deck.length; i++) {
+    for (const item of deck) {
         const li = document.createElement('li');
-        const symbol = deck[i];
+        const icons = item;
         li.classList.add('card');
-        li.innerHTML = `<i class = "${symbol}">`;
+        li.innerHTML= `<i class="${icons}">`;
         deckField.appendChild(li);
     }
 }
