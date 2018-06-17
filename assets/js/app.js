@@ -2,23 +2,23 @@
  * List that holds all cards
  */
 const deck = [
-'fa fa-diamond',
-'fa fa-paper-plane-o',
-'fa fa-anchor',
-'fa fa-bolt',
-'fa fa-cube',
-'fa fa-anchor',
-'fa fa-leaf',
-'fa fa-bicycle',
-'fa fa-diamond',
-'fa fa-bomb',
-'fa fa-leaf',
-'fa fa-bomb',
-'fa fa-bolt',
-'fa fa-bicycle',
-'fa fa-paper-plane-o',
-'fa fa-cube'
-]
+  'fa fa-diamond',
+  'fa fa-paper-plane-o',
+  'fa fa-anchor',
+  'fa fa-bolt',
+  'fa fa-cube',
+  'fa fa-anchor',
+  'fa fa-leaf',
+  'fa fa-bicycle',
+  'fa fa-diamond',
+  'fa fa-bomb',
+  'fa fa-leaf',
+  'fa fa-bomb',
+  'fa fa-bolt',
+  'fa fa-bicycle',
+  'fa fa-paper-plane-o',
+  'fa fa-cube'
+];
 
 // Get deck playing field
 const deckField = document.querySelector('.deck');
@@ -32,30 +32,32 @@ const deckField = document.querySelector('.deck');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
-    var currentIndex = array.length, temporaryValue, randomIndex;
+  var currentIndex = array.length,
+    temporaryValue,
+    randomIndex;
 
-    while (currentIndex !== 0) {
-        randomIndex = Math.floor(Math.random() * currentIndex);
-        currentIndex -= 1;
-        temporaryValue = array[currentIndex];
-        array[currentIndex] = array[randomIndex];
-        array[randomIndex] = temporaryValue;
-    }
+  while (currentIndex !== 0) {
+    randomIndex = Math.floor(Math.random() * currentIndex);
+    currentIndex -= 1;
+    temporaryValue = array[currentIndex];
+    array[currentIndex] = array[randomIndex];
+    array[randomIndex] = temporaryValue;
+  }
 
-    return array;
+  return array;
 }
 
 shuffle(deck);
 
 // Deal cards
 function deal() {
-    for (const item of deck) {
-        const li = document.createElement('li');
-        const icons = item;
-        li.classList.add('card');
-        li.innerHTML= `<i class="${icons}">`;
-        deckField.appendChild(li);
-    }
+  for (const item of deck) {
+    const li = document.createElement('li');
+    const icons = item;
+    li.classList.add('card');
+    li.innerHTML = `<i class="${icons}">`;
+    deckField.appendChild(li);
+  }
 }
 
 deal();
@@ -70,17 +72,45 @@ deal();
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
 const allCards = document.querySelectorAll('.card');
-const addOpenCards = [];
+let addOpenCards = [];
+let addMatchCards = [];
 
 // Reveal card and icon symbol when click
 deckField.addEventListener('click', e => {
-    const target = e.target;
-    if (target.classList.contains('card')) {
-        openCard(target)
+  const target = e.target;
+  if (
+    target.classList.contains('card') &&
+    addOpenCards.length < 2 &&
+    !addOpenCards.includes(target)
+  ) {
+    target.classList.add('open');
+    target.classList.add('show');
+    addCard(target);
+    if (addOpenCards.length == 2) {
+      match();
     }
-})
+  }
+});
 
-function openCard(target) {
-    target.classList.toggle('open');
-    target.classList.toggle('show');
+// Add open cards to new array
+function addCard(target) {
+  addOpenCards.push(target);
+}
+
+// Check for match
+function match() {
+  if (addOpenCards[0].innerHTML == addOpenCards[1].innerHTML) {
+    addOpenCards[0].classList.add('match');
+    addOpenCards[1].classList.add('match');
+    addMatchCards.push(addOpenCards[0]);
+    addMatchCards.push(addOpenCards[1]);
+    addOpenCards = [];
+  } else {
+    setTimeout(() => {
+      addOpenCards.forEach(card => {
+        card.classList.remove('open', 'show');
+      });
+      addOpenCards = [];
+    }, 1000);
+  }
 }
