@@ -68,6 +68,7 @@ restartGame.addEventListener('click', () => {
   shuffle(deck);
   deal();
   addMatchCards = [];
+  movesNumber.innerHTML = 0;
 });
 
 /*
@@ -83,7 +84,8 @@ restartGame.addEventListener('click', () => {
 const allCards = document.querySelector('.card');
 let addOpenCards = [];
 let addMatchCards = [];
-const moves = 0;
+let moves = 0;
+const movesNumber = document.querySelector('.moves');
 
 // Reveal card and icon symbol when click
 deckField.addEventListener('click', e => {
@@ -98,12 +100,18 @@ deckField.addEventListener('click', e => {
     addCard(target);
     if (addOpenCards.length == 2) {
       match();
+      moveCounter();
     }
   }
 });
 
 // Move counter
-function moveCounter() {}
+function moveCounter() {
+  moves++;
+  movesNumber.innerHTML = moves;
+}
+
+// Star rating
 
 // Check win
 function win() {
