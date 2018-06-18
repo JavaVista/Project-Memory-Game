@@ -68,7 +68,9 @@ restartGame.addEventListener('click', () => {
   shuffle(deck);
   deal();
   addMatchCards = [];
+  moves = 0;
   movesNumber.innerHTML = 0;
+  stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
 });
 
 /*
@@ -86,6 +88,7 @@ let addOpenCards = [];
 let addMatchCards = [];
 let moves = 0;
 const movesNumber = document.querySelector('.moves');
+const stars = document.querySelector('.stars');
 
 // Reveal card and icon symbol when click
 deckField.addEventListener('click', e => {
@@ -109,9 +112,22 @@ deckField.addEventListener('click', e => {
 function moveCounter() {
   moves++;
   movesNumber.innerHTML = moves;
+  ratingStars();
 }
 
-// Star rating
+// Game star ratings
+function ratingStars(params) {
+  switch (moves) {
+    case 16:
+      stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
+      break;
+    case 20:
+      stars.innerHTML = `<li><i class="fa fa-star"></i></li>`;
+      break;
+    case 25:
+      stars.innerHTML = ``;
+  }
+}
 
 // Check win
 function win() {
