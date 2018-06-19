@@ -29,6 +29,18 @@ const restartGame = document.querySelector('.restart');
  *   - loop through each card and create its HTML
  *   - add each card's HTML to the page
  */
+const allCards = document.querySelector('.card');
+let addOpenCards = [];
+let addMatchCards = [];
+let moves = 0;
+const movesNumber = document.querySelector('.moves');
+const stars = document.querySelector('.stars');
+let min = 0;
+let sec = 0;
+let timer;
+const time = document.querySelector('.timer-output');
+let timeRunning = false;
+const clock = '<i class="fa fa-clock-o"></i>';
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -65,6 +77,7 @@ deal();
 // Restart game
 restartGame.addEventListener('click', () => {
   deckField.innerHTML = '';
+  stopTimer();
   shuffle(deck);
   deal();
   addMatchCards = [];
@@ -83,12 +96,7 @@ restartGame.addEventListener('click', () => {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-const allCards = document.querySelector('.card');
-let addOpenCards = [];
-let addMatchCards = [];
-let moves = 0;
-const movesNumber = document.querySelector('.moves');
-const stars = document.querySelector('.stars');
+
 
 // Reveal card and icon symbol when click
 deckField.addEventListener('click', e => {
@@ -106,6 +114,7 @@ deckField.addEventListener('click', e => {
       moveCounter();
     }
   }
+  startTimer();
 });
 
 // Move counter
@@ -127,6 +136,36 @@ function ratingStars(params) {
     case 25:
       stars.innerHTML = ``;
   }
+}
+
+// Game timer
+function startTimer() {
+  if (timeRunning == false) {
+    timer = setInterval(insertTime, 1000);
+    timeRunning = true;
+  } else {
+    return;
+  }
+}
+
+function stopTimer() {
+  clearInterval(timer);
+  sec = 0;
+  min = 0;
+  timeRunning = false;
+  time.innerHTML = `<p>00 : 00</p>`;
+}
+
+function insertTime() {
+  sec++;
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  if (sec >= 60) {
+    min++
+    sec = '00';
+  }
+  time.innerHTML = `<p>0${min} : ${sec} ${clock}</p>`;
 }
 
 // Check win
