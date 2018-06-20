@@ -22,7 +22,7 @@ const deck = [
 
 // Get deck playing field
 const deckField = document.querySelector('.deck');
-const restartGame = document.querySelector('.restart');
+const restart = document.querySelector('.restart');
 /*
  * Display the cards on the page
  *   - shuffle the list of cards using the provided "shuffle" method below
@@ -41,6 +41,7 @@ let timer;
 const time = document.querySelector('.timer-output');
 let timeRunning = false;
 const clock = '<i class="fa fa-clock-o"></i>';
+const modal = document.querySelector('.modal-back');
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -74,17 +75,7 @@ function deal() {
 
 deal();
 
-// Restart game
-restartGame.addEventListener('click', () => {
-  deckField.innerHTML = '';
-  stopTimer();
-  shuffle(deck);
-  deal();
-  addMatchCards = [];
-  moves = 0;
-  movesNumber.innerHTML = 0;
-  stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
-});
+restartGame();
 
 /*
  * set up the event listener for a card. If a card is clicked:
@@ -96,7 +87,6 @@ restartGame.addEventListener('click', () => {
  *    + increment the move counter and display it on the page (put this functionality in another function that you call from this one)
  *    + if all cards have matched, display a message with the final score (put this functionality in another function that you call from this one)
  */
-
 
 // Reveal card and icon symbol when click
 deckField.addEventListener('click', e => {
@@ -117,6 +107,14 @@ deckField.addEventListener('click', e => {
   startTimer();
 });
 
+// Restart game
+function restartGame() {
+  restart.addEventListener('click', () => {
+    reset();
+  });
+}
+
+
 // Move counter
 function moveCounter() {
   moves++;
@@ -125,7 +123,7 @@ function moveCounter() {
 }
 
 // Game star ratings
-function ratingStars(params) {
+function ratingStars() {
   switch (moves) {
     case 16:
       stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
@@ -148,6 +146,18 @@ function startTimer() {
   }
 }
 
+function insertTime() {
+  sec++;
+  if (sec < 10) {
+    sec = `0${sec}`;
+  }
+  if (sec >= 60) {
+    min++;
+    sec = '00';
+  }
+  time.innerHTML = `<p>0${min} : ${sec} ${clock}</p>`;
+}
+
 function stopTimer() {
   clearInterval(timer);
   sec = 0;
@@ -156,24 +166,45 @@ function stopTimer() {
   time.innerHTML = `<p>00 : 00</p>`;
 }
 
-function insertTime() {
-  sec++;
-  if (sec < 10) {
-    sec = `0${sec}`;
+
+// Get star count
+function getStarCount() {
+  const currentStars = document.querySelectorAll('.stars li');
+  let starCount = 0;
+  for (const star of currentStars) {
+    if (star.style.display !== 'none') {
+      starCount++;
+    }
   }
-  if (sec >= 60) {
-    min++
-    sec = '00';
-  }
-  time.innerHTML = `<p>0${min} : ${sec} ${clock}</p>`;
+  return starCount;
 }
 
-// Check win
+// Check win modal window
 function win() {
-  if (addMatchCards.length == 16) {
-    alert('You the winner!');
+  if (addMatchCards.length == 2) {
+    clearInterval(timer);
+    modal.classList.toggle('hide');
+    modalStats();
   }
 }
+
+function modalStats() {
+  const modalTime = document.querySelector('.modal-time');
+  const clockTime = document.querySelector('.timer-output').innerHTML;
+  const modalMoves = document.querySelector('.modal-moves');
+  const currentMove = movesNumber.innerHTML;
+  const modalStars = document.querySelector('.modal-stars');
+  const currentStars = getStarCount();
+  modalTime.innerHTML = `<span class="modal-time">${clockTime}</span>`;
+  modalMoves.innerHTML = `<span class="modal-moves">Moves: ${currentMove}</span>`;
+  modalStars.innerHTML = `<span class="modal-stars">Stars: ${currentStars}</span>`;
+}
+
+document.querySelector('.modal-replay').addEventListener('click', () => {
+  modal.classList.toggle('hide');
+  reset();
+});
+
 
 // Add open cards to new array
 function addCard(target) {
@@ -197,4 +228,16 @@ function match() {
       addOpenCards = [];
     }, 1000);
   }
+}
+
+// Reset game items
+function reset() {
+  deckField.innerHTML = '';
+  stopTimer();
+  shuffle(deck);
+  deal();
+  addMatchCards = [];
+  moves = 0;
+  movesNumber.innerHTML = 0;
+  stars.innerHTML = `<li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li><li><i class="fa fa-star"></i></li>`;
 }
