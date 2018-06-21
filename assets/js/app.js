@@ -42,6 +42,7 @@ const time = document.querySelector('.timer-output');
 let timeRunning = false;
 const clock = '<i class="fa fa-clock-o"></i>';
 const modal = document.querySelector('.modal-back');
+const totalPairs = 2;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -107,6 +108,32 @@ deckField.addEventListener('click', e => {
   startTimer();
 });
 
+// Add open cards to new array
+function addCard(target) {
+  addOpenCards.push(target);
+}
+
+// Check for match
+function match() {
+  if (addOpenCards[0].innerHTML == addOpenCards[1].innerHTML) {
+    addOpenCards[0].classList.add('match');
+    addOpenCards[1].classList.add('match');
+    addMatchCards.push(addOpenCards[0]);
+    addMatchCards.push(addOpenCards[1]);
+    addOpenCards = [];
+
+  } else {
+    setTimeout(() => {
+      addOpenCards.forEach(card => {
+        card.classList.remove('open', 'show');
+      });
+      addOpenCards = [];
+    }, 1000);
+  }
+  win();
+}
+
+
 // Restart game
 function restartGame() {
   restart.addEventListener('click', () => {
@@ -120,6 +147,7 @@ function moveCounter() {
   moves++;
   movesNumber.innerHTML = moves;
   ratingStars();
+  return moves;
 }
 
 // Game star ratings
@@ -179,25 +207,28 @@ function getStarCount() {
   return starCount;
 }
 
-// Check win modal window
-function win() {
-  if (addMatchCards.length == 2) {
-    clearInterval(timer);
-    modal.classList.toggle('hide');
-    modalStats();
-  }
+// Modal window game results after wining game
+function modalStats() {
+  setTimeout(() => {
+    const clockTime = document.querySelector('.timer-output').innerHTML;
+    const modalTime = document.querySelector('.modal-time');
+    const currentMove = moveCounter();
+    const modalMoves = document.querySelector('.modal-moves');
+    const currentStars = getStarCount();
+    const modalStars = document.querySelector('.modal-stars');
+    modalTime.innerHTML = `${clockTime}`;
+    modalMoves.innerHTML = `Moves: ${currentMove}`;
+    modalStars.innerHTML = `Stars: ${currentStars}`;
+  }, 0);
 }
 
-function modalStats() {
-  const modalTime = document.querySelector('.modal-time');
-  const clockTime = document.querySelector('.timer-output').innerHTML;
-  const modalMoves = document.querySelector('.modal-moves');
-  const currentMove = movesNumber.innerHTML;
-  const modalStars = document.querySelector('.modal-stars');
-  const currentStars = getStarCount();
-  modalTime.innerHTML = `<span class="modal-time">${clockTime}</span>`;
-  modalMoves.innerHTML = `<span class="modal-moves">Moves: ${currentMove}</span>`;
-  modalStars.innerHTML = `<span class="modal-stars">Stars: ${currentStars}</span>`;
+// Check win modal window
+function win() {
+  if (addMatchCards.length == totalPairs) {
+    clearInterval(timer);
+    modalStats();
+    return modal.classList.toggle('hide');
+  }
 }
 
 document.querySelector('.modal-replay').addEventListener('click', () => {
@@ -205,30 +236,6 @@ document.querySelector('.modal-replay').addEventListener('click', () => {
   reset();
 });
 
-
-// Add open cards to new array
-function addCard(target) {
-  addOpenCards.push(target);
-}
-
-// Check for match
-function match() {
-  if (addOpenCards[0].innerHTML == addOpenCards[1].innerHTML) {
-    addOpenCards[0].classList.add('match');
-    addOpenCards[1].classList.add('match');
-    addMatchCards.push(addOpenCards[0]);
-    addMatchCards.push(addOpenCards[1]);
-    addOpenCards = [];
-    win();
-  } else {
-    setTimeout(() => {
-      addOpenCards.forEach(card => {
-        card.classList.remove('open', 'show');
-      });
-      addOpenCards = [];
-    }, 1000);
-  }
-}
 
 // Reset game items
 function reset() {
