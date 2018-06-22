@@ -123,12 +123,17 @@ function match() {
     addOpenCards = [];
 
   } else {
-    setTimeout(() => {
-      addOpenCards.forEach(card => {
-        card.classList.remove('open', 'show');
-      });
+    addOpenCards.forEach(card => {
+      setTimeout(() => {
+        card.classList.add('no');
+      }, 500);
+
+      setTimeout(() => {
+        card.classList.remove('open', 'show', 'no');
+      }, 1000);
+
       addOpenCards = [];
-    }, 1000);
+    });
   }
   win();
 }
