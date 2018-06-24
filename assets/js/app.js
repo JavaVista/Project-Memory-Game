@@ -1,4 +1,5 @@
-/* TODO: Add leaderboard
+/* TODO: add leaderboard
+ *
  * List that holds all cards
  * emojis provided by http://ellekasai.github.io/twemoji-awesome/
  */
@@ -122,7 +123,6 @@ function match() {
     addMatchCards.push(addOpenCards[0]);
     addMatchCards.push(addOpenCards[1]);
     addOpenCards = [];
-
   } else {
     addOpenCards.forEach(card => {
       setTimeout(() => {
@@ -139,7 +139,6 @@ function match() {
   win();
 }
 
-
 // Restart game
 function restartGame() {
   restart.addEventListener('click', () => {
@@ -150,8 +149,8 @@ function restartGame() {
 resetKey();
 
 function resetKey() {
-  document.addEventListener('keydown', (e) => {
-   const rKeyPress = '82'
+  document.addEventListener('keydown', e => {
+    const rKeyPress = '82';
     if (e.keyCode == rKeyPress) {
       reset();
     }
@@ -210,7 +209,6 @@ function stopTimer() {
   time.innerHTML = `<p>0 : 00</p>`;
 }
 
-
 // Get star count
 function getStarCount() {
   const currentStars = document.querySelectorAll('.stars li');
@@ -251,7 +249,6 @@ document.querySelector('.modal-replay').addEventListener('click', () => {
   modal.classList.toggle('hide');
   reset();
 });
-
 
 // Reset game items
 function reset() {
