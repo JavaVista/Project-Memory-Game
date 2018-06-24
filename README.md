@@ -41,7 +41,7 @@ To view the code and make changes:
 
 ### Demo
 
-[Memory Game](https://?url-/)
+[Memory Game](https://javavista.github.io/Project-Memory-Game/)
 
 ## Contact / Social Media
 
