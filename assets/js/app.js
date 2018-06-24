@@ -1,23 +1,24 @@
 /*
  * List that holds all cards
+ * emojis provided by http://ellekasai.github.io/twemoji-awesome/
  */
 const deck = [
-  'fa fa-diamond',
-  'fa fa-paper-plane-o',
-  'fa fa-anchor',
-  'fa fa-bolt',
-  'fa fa-cube',
-  'fa fa-anchor',
-  'fa fa-leaf',
-  'fa fa-bicycle',
-  'fa fa-diamond',
-  'fa fa-bomb',
-  'fa fa-leaf',
-  'fa fa-bomb',
-  'fa fa-bolt',
-  'fa fa-bicycle',
-  'fa fa-paper-plane-o',
-  'fa fa-cube'
+  'twa twa-blush',
+  'twa twa-joy',
+  'twa twa-heart-eyes',
+  'twa twa-smirk',
+  'twa twa-poop',
+  'twa twa-heart-eyes',
+  'twa twa-alien',
+  'twa twa-laughing',
+  'twa twa-blush',
+  'twa twa-angel',
+  'twa twa-alien',
+  'twa twa-angel',
+  'twa twa-smirk',
+  'twa twa-laughing',
+  'twa twa-joy',
+  'twa twa-poop'
 ];
 
 // Get deck playing field
@@ -42,7 +43,7 @@ const time = document.querySelector('.timer-output');
 let timeRunning = false;
 const clock = '<i class="fa fa-clock-o"></i>';
 const modal = document.querySelector('.modal-back');
-const totalPairs = 2;
+const totalPairs = 16;
 
 // Shuffle function from http://stackoverflow.com/a/2450976
 function shuffle(array) {
@@ -188,7 +189,7 @@ function insertTime() {
     min++;
     sec = '00';
   }
-  time.innerHTML = `<p>0${min} : ${sec} ${clock}</p>`;
+  time.innerHTML = `<p>${min} : ${sec} ${clock}</p>`;
 }
 
 function stopTimer() {
@@ -196,7 +197,7 @@ function stopTimer() {
   sec = 0;
   min = 0;
   timeRunning = false;
-  time.innerHTML = `<p>00 : 00</p>`;
+  time.innerHTML = `<p>0 : 00</p>`;
 }
 
 
@@ -227,7 +228,7 @@ function modalStats() {
   }, 0);
 }
 
-// Check win modal window
+// Check win and display modal window
 function win() {
   if (addMatchCards.length == totalPairs) {
     clearInterval(timer);

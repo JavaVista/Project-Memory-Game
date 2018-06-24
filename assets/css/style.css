@@ -1,36 +1,39 @@
 html {
-    box-sizing: border-box;
+  box-sizing: border-box;
 }
 
 *,
 *::before,
 *::after {
-    box-sizing: inherit;
+  box-sizing: inherit;
 }
 
 html,
 body {
-    width: 100%;
-    height: 100%;
-    margin: 0;
-    padding: 0;
+  width: 100%;
+  height: 100%;
+  margin: 0;
+  padding: 0;
 }
 
 body {
-    background: #ffffff url('../img/cool-background.png'); /* Background pattern from https://coolbackgrounds.io */
-    font-family: 'Fjalla One', sans-serif;
+  background: #ffffff url('../img/smiley-1041796_640.jpg'); /* Background from https://pixabay.com */
+  font-family: 'Open Sans', sans-serif;
 }
 
 .container {
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    flex-direction: column;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
 }
 
 h1 {
-    font-family: 'Helvetica', sans-serif;
-    font-weight: 300;
+  font-family: 'Bubblegum Sans', cursive;
+  font-weight: 300;
+  font-size: 40px;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 /*
@@ -38,66 +41,92 @@ h1 {
  */
 
 .deck {
-    width: 660px;
-    min-height: 680px;
-    background: linear-gradient(160deg, #D1C4E9 0%, #311B92 100%);
-    padding: 32px;
-    border-radius: 10px;
-    box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    align-items: center;
-    margin: 0 0 3em;
+  width: 660px;
+  min-height: 680px;
+  background: linear-gradient(160deg, #d1c4e9 0%, #311b92 100%);
+  padding: 32px;
+  border-radius: 10px;
+  box-shadow: 12px 15px 20px 0 rgba(46, 61, 73, 0.5);
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  align-items: center;
+  margin: 0 0 3em;
 }
 
 .deck .card {
-    height: 125px;
-    width: 125px;
-    background: #202a33;
-    font-size: 0;
-    color: #ffffff;
-    border-radius: 8px;
-    cursor: pointer;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
+  height: 125px;
+  width: 125px;
+  background: #202a33;
+  font-size: 0;
+  color: #ffffff;
+  border-radius: 8px;
+  cursor: pointer;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  box-shadow: 5px 2px 20px 0 rgba(46, 61, 73, 0.5);
 }
+
 .no {
-background: red !important;
-animation:shake 0.5s;
-animation-iteration-count: infinite;
+  background: #f50057 !important;
+  animation: shake 0.5s;
+  animation-iteration-count: infinite;
+  transition: all 0.2s ease;
 }
 
 @keyframes shake {
-    0% { transform: translate(1px, 1px) rotate(0deg); }
-    10% { transform: translate(-1px, -2px) rotate(-1deg); }
-    20% { transform: translate(-3px, 0px) rotate(1deg); }
-    30% { transform: translate(3px, 2px) rotate(0deg); }
-    40% { transform: translate(1px, -1px) rotate(1deg); }
-    50% { transform: translate(-1px, 2px) rotate(-1deg); }
-    60% { transform: translate(-3px, 1px) rotate(0deg); }
-    70% { transform: translate(3px, 1px) rotate(-1deg); }
-    80% { transform: translate(-1px, -1px) rotate(1deg); }
-    90% { transform: translate(1px, 2px) rotate(0deg); }
-    100% { transform: translate(1px, -2px) rotate(-1deg); }
+  0% {
+    transform: translate(1px, 1px) rotate(0deg);
+  }
+  10% {
+    transform: translate(-1px, -2px) rotate(-1deg);
+  }
+  20% {
+    transform: translate(-3px, 0px) rotate(1deg);
+  }
+  30% {
+    transform: translate(3px, 2px) rotate(0deg);
+  }
+  40% {
+    transform: translate(1px, -1px) rotate(1deg);
+  }
+  50% {
+    transform: translate(-1px, 2px) rotate(-1deg);
+  }
+  60% {
+    transform: translate(-3px, 1px) rotate(0deg);
+  }
+  70% {
+    transform: translate(3px, 1px) rotate(-1deg);
+  }
+  80% {
+    transform: translate(-1px, -1px) rotate(1deg);
+  }
+  90% {
+    transform: translate(1px, 2px) rotate(0deg);
+  }
+  100% {
+    transform: translate(1px, -2px) rotate(-1deg);
+  }
 }
 
 .deck .card.open {
-    transform: rotateY(0);
-    background: #FF8F00;
-    cursor: default;
+  transform: rotateY(180deg);
+  background: #ff8f00;
+  cursor: default;
+  transition: all 0.2s ease;
 }
 
 .deck .card.show {
-    font-size: 33px;
+  font-size: 33px;
+  transition: all 0.2s ease;
 }
 
 .deck .card.match {
-    cursor: default;
-    background: #2E7D32;
-    font-size: 33px;
+  cursor: default;
+  background: #2e7d32;
+  font-size: 33px;
 }
 
 /*
@@ -105,106 +134,151 @@ animation-iteration-count: infinite;
  */
 
 .score-panel {
-    text-align: left;
-    width: 345px;
-    margin-bottom: 10px;
+  text-align: left;
+  width: 345px;
+  margin-bottom: 10px;
+  font-weight: bold;
 }
 
 .timer-output {
-    text-align: center;
+  text-align: center;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
+  font-size: 20px;
 }
 
 .score-panel .stars {
-    margin: 0;
-    padding: 0;
-    display: inline-block;
-    margin: 0 5px 0 0;
+  margin: 0;
+  padding: 0;
+  display: inline-block;
+  margin: 0 5px 0 0;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 .score-panel .stars li {
-    list-style: none;
-    display: inline-block;
+  list-style: none;
+  display: inline-block;
 }
 
 .score-panel .restart {
-    float: right;
-    cursor: pointer;
+  float: right;
+  cursor: pointer;
+  color: white;
+  text-shadow: 2px 2px 4px #000000;
 }
 
 /* Modal style */
 .modal-back {
-    position: absolute;
-    top: 0;
-    left: 0;
-    height: 100%;
-    width: 100%;
-    background: rgba(46, 61, 73, 0.5)
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 100%;
+  background: rgba(46, 61, 73, 0.5);
 }
 
 .hide {
-    display: none;
+  display: none;
 }
 
 .modal-header {
-    display: flex;
-    justify-content: space-around;
-    align-items: center;
-    padding: 0 1.5vw;
-    border-bottom: 1px solid #2e3d49
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  padding: 0 1.5vw;
+  border-bottom: 1px solid #2e3d49;
 }
 
 .modal-close {
-    font-weight: bold;
-    font-size: 2vw;
+  font-weight: bold;
+  font-size: 2vw;
 }
 
 .modal-box {
-    position: relative;
-    width: 400px;
-    top: 50%;
-    left: 50%;
-    transform: translate(-50%, -70%);
-    background: #fff;
-    border-radius: 8px;
-    box-shadow: 5px 2px 20px 0 rgba(0, 0, 0, 0.5);
+  position: relative;
+  width: 400px;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -70%);
+  background: #fff;
+  border-radius: 8px;
+  box-shadow: 5px 2px 20px 0 rgba(0, 0, 0, 0.5);
 }
 
 .modal-stats {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    padding: 1vw;
-    border-bottom: 1px solid #2e3d49;
-    font-weight: bold;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 1vw;
+  border-bottom: 1px solid #2e3d49;
+  font-weight: bold;
 }
 
 .modal-buttons {
-    display: flex;
-    justify-content: space-around;
-    padding: 1vw;
+  display: flex;
+  justify-content: space-around;
+  padding: 1vw;
 }
 
 .modal-button {
-    width: 62px;
-    height: 62px;
-    border-radius: 8px;
+  width: 62px;
+  height: 62px;
+  border-radius: 8px;
 }
 
 /* Footer style*/
 .footer {
-    background-color: #7E57C2;
-    font-size: 10px;
-    margin-top: 18px;
-    margin-bottom: 18px;
-    color: #fff;
-    letter-spacing: 0.2em;
-    text-align: center;
+  background-color: #7e57c2;
+  font-size: 10px;
+  margin-top: 18px;
+  margin-bottom: 18px;
+  color: #fff;
+  letter-spacing: 0.2em;
+  text-align: center;
+}
+
+@media screen and (max-width: 768px) {
+  .deck {
+    width: 400px;
+    min-height: 400px;
+    padding: 10px;
   }
 
-  @media only screen and (max-width: 450px){ /* fixed @media error and remmove marging check out portfolio project */
-    .deck .card{
-      width: 50px;
-      height: 50px;
-      line-height: 50px;
-      margin: 0 10px 10px 0 !important;
-    }
+  .score-panel {
+    width: 400px;
+    font-size: 3vw;
+  }
+
+  .deck .card {
+    width: 85px;
+    height: 85px;
+  }
+}
+
+@media screen and (max-width: 450px) {
+  h1 {
+    font-size: 14vw;
+  }
+
+  .score-panel {
+    font-size: 8vw;
+    padding: 10px;
+  }
+
+  .deck {
+    width: 350px;
+    min-height: 350px;
+    padding: 5px;
+  }
+
+  .deck .card {
+    width: 80px;
+    height: 80px;
+  }
+
+  .footer {
+    padding-right: 5px;
+    padding-left: 5px;
+  }
+}
