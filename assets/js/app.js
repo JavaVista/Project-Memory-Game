@@ -1,4 +1,4 @@
-/*
+/* TODO: Add leaderboard
  * List that holds all cards
  * emojis provided by http://ellekasai.github.io/twemoji-awesome/
  */
@@ -147,6 +147,16 @@ function restartGame() {
   });
 }
 
+resetKey();
+
+function resetKey() {
+  document.addEventListener('keydown', (e) => {
+   const rKeyPress = '82'
+    if (e.keyCode == rKeyPress) {
+      reset();
+    }
+  });
+}
 
 // Move counter
 function moveCounter() {
